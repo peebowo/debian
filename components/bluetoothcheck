@@ -1,0 +1,14 @@
+#!/bin/bash
+if pacmd dump | awk 'NR==26 {print $3}' | grep -q 'yes'; then
+	echo "Muted"
+
+elif pacmd dump | awk 'NR==30 {print $3}' | grep -q 'yes'; then
+	echo "Muted BT"
+
+elif pactl list sinks | grep -i -q 'AirPods\|HP4500'; then
+	pactl list sinks | awk 'NR==64 {print $5}'
+
+else	pactl list sinks | awk 'NR==10 {print $5}'
+
+fi
+
